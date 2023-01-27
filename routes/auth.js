@@ -1,12 +1,12 @@
 /* * 👇
  *This authentication rout will be used in index.js
- *It is responsible for authentication of users in case of registeration or login
+ *It is responsible for authentication of users in case of registration or login
  *It also creates cart and favorite list when new user is registered
  */
 
 // require express router
 const router = require("express").Router();
-// require jasob web tomen
+// require json web token
 const jsonwebtoken = require("jsonwebtoken");
 // import User Schema
 const User = require("../models/User");
@@ -16,7 +16,7 @@ const Cart = require("../models/Cart");
 const Favorite = require("../models/Favorite");
 // import CryptoJS to hash passwords
 const CryptoJS = require("crypto-js");
-// dotenv to hide impoetant keys in .env
+// dotenv to hide important keys in .env
 const dotenv = require("dotenv");
 // activate dotenv
 dotenv.config();
@@ -25,7 +25,7 @@ const JWT_KEY = process.env.JWT_KEY;
 // cryptoJS secret key for password hashing
 const SECRET_KEY = process.env.SECRET_KEY;
 
-//post method for registeration using router
+//post method for registration using router
 router.post("/register", async (req, res) => {
   // use User Schema and assign password to request body.password, body.email, body.password
   const user = new User({
@@ -39,11 +39,11 @@ router.post("/register", async (req, res) => {
     const savedUser = await user.save();
     // get new user id
     const userId = savedUser._id;
-    // then asign a new cart schame wth new user id
+    // then assign a new cart schema wth new user id
     const cart = new Cart({
       userId: userId,
     });
-    // then asign a new favorite schema wth new user id
+    // then assign a new favorite schema wth new user id
     const favorite = new Favorite({
       userId: userId,
     });
@@ -71,7 +71,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(401).json("wrong username");
     } else {
-      // asign accessToken to username and id
+      // assign accessToken to username and id
       const accessToken = jsonwebtoken.sign(
         {
           id: user._id,
@@ -84,14 +84,14 @@ router.post("/login", async (req, res) => {
           expiresIn: "3d",
         }
       );
-      // decrypt passwword to using secret key and then next will compare it with request body password
+      // decrypt password to using secret key and then next will compare it with request body password
       const decryptedPassword = CryptoJS.AES.decrypt(
         user.password,
         process.env.SECRET_KEY
       );
-      // switch decrypted Password to original password usingy Utf8 protocol
+      // switch decrypted Password to original password using Utf8 protocol
       const originalPassword = decryptedPassword.toString(CryptoJS.enc.Utf8);
-      // compare original password with rquest password if not the same then send error
+      // compare original password with request password if not the same then send error
       if (originalPassword !== req.body.password) {
         return res.status(401).json("wrong  password");
       } else if (
@@ -102,9 +102,9 @@ router.post("/login", async (req, res) => {
         // return error
         return res.status(401).json("wrong username and password");
       }
-      // send all the user data and exlude the password
+      // send all the user data and exclude the password
       const { password, ...others } = user._doc;
-      // responde with all data and accessToken
+      // respond with all data and accessToken
       res.status(200).json({ ...others, accessToken });
     }
   } catch (err) {
