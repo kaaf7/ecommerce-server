@@ -1,6 +1,6 @@
 /* * 👇
  *This cart rout will be used in index.js
- *It creates cart for the new user on registeration
+ *It creates cart for the new user on registration
  *It is responsible for getting cart data on login
  *It is responsible for updating cart when product is being added or removed
  */
@@ -9,10 +9,10 @@
 const router = require("express").Router();
 // import cart schema
 const Cart = require("../models/Cart");
-// import Verify token and Authorization after verefication and authroization
+// import Verify token and Authorization after verification and authentication
 const { verifyTokenAndAuthorization } = require("./verifytoken");
 
-//create cart using POST request after verefication and authroization
+//create cart using POST request after verification and authentication
 router.post("/add", verifyTokenAndAuthorization, async (req, res) => {
   const userId = req.query.id;
   const cart = new Cart({
@@ -27,7 +27,7 @@ router.post("/add", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-//get cart using GET request after verefication and authroization
+//get cart using GET request after verification and authentication
 router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
   const userId = req.query.id;
   try {
@@ -38,7 +38,7 @@ router.get("/find", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-//update cart using PUT request after verefication and authroization
+//update cart using PUT request after verification and authentication
 router.put("/update", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const updatedCart = await Cart.findOneAndUpdate(
@@ -54,7 +54,7 @@ router.put("/update", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-//delete cart using DELETE request after verefication and authroization
+//delete cart using DELETE request after verification and authentication
 router.delete("/delete", verifyTokenAndAuthorization, async (req, res) => {
   try {
     await Cart.findOneAndDelete({ userId: req.query.id });
