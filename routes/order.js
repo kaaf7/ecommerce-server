@@ -49,7 +49,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 
 // get user orders
 
-router.get("/find/:uderId", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.params.userId });
     res.status(200).json(orders);
@@ -69,7 +69,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-//get monhtly statistics/income
+//get monthly statistics/income
 
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {
   const date = new Date();
