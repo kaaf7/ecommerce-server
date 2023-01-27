@@ -1,5 +1,5 @@
 /* * 👇
- *This is serverside index.js
+ *This is server side index.js
  *It will connect to PORT and MongoDB server
  *It will connect all routes with URI
  */
