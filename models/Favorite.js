@@ -5,7 +5,7 @@
  */
 
 const mongoose = require("mongoose");
-// create new shcema
+// create new schema
 const FavoriteSchema = new mongoose.Schema(
   {
     userId: { type: String, required: true },
