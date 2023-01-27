@@ -1,6 +1,6 @@
 /* * 👇
  *This favorite rout will be used in index.js
- *It creates favorite list for the new user on registeration
+ *It creates favorite list for the new user on registration
  *It is responsible for getting favorite products on login
  *It is responsible for updating favorites when product is being added or removed
  */
