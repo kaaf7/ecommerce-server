@@ -5,16 +5,16 @@
 
 // require jason web token
 const jwToken = require("jsonwebtoken");
-// verify token taking request, response, and next middlware arguments
+// verify token taking request, response, and next middleware arguments
 const verifyJwtToken = (req, res, next) => {
   // get token from request headers
   const authHeader = req.headers.token;
   // if token exists then verify it with jsonwebtoken using the secret key in .env
   // if verified it means that user is the authenticated user
-  // next middlware
+  // next middleware
   if (authHeader) {
     jwToken.verify(authHeader, process.env.JWT_KEY, (err, user) => {
-      //error 403
+      // error 403
       if (err) res.status(403).json("token is not valid");
       req.user = user;
       next();
