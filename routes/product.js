@@ -11,7 +11,6 @@ const router = require("express").Router();
 const Product = require("../models/Product");
 // verify token and admin
 const { verifyTokenAndAdmin } = require("./verifytoken");
-
 //get single product by Id using GET request
 router.get("/allproducts/product", async (req, res) => {
   const qProductId = req.query.id;
